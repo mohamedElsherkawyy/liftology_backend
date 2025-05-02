@@ -1,6 +1,6 @@
 import httpx
 async def call_ml_model(data: dict):
-    url = "http://localhost:8001/predict"  # Exercise model endpoint
+    url = "exercise-plan-production.up.railway.app"  # Exercise model endpoint
     async with httpx.AsyncClient() as client:
         response = await client.post(url, json=data)
         response.raise_for_status()
