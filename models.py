@@ -6,6 +6,8 @@ class UserRegister(BaseModel):
     Last_name: str
     email: EmailStr
     password: str
+    Phone_number: str
+    country: str
 
 class UserLogin(BaseModel):
     email: EmailStr
