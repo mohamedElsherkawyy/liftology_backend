@@ -2,7 +2,8 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, Any, Union, List
 
 class UserRegister(BaseModel):
-    name: str
+    First_name: str
+    Last_name: str
     email: EmailStr
     password: str
 
