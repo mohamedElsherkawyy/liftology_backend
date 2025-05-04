@@ -9,14 +9,15 @@ router = APIRouter()
 def signup(user: UserRegister):
     if users_col.find_one({"user_info.email": user.email}):
         raise HTTPException(status_code=400, detail="Email already exists")
-    users_col.insert_one({
-        "user_info":{
-        "first name": user.firstName,
-        "last name": user.lastName,
-        "email": user.email,
-        "password": user.password,
-        "phone number": user.phone,
-        "country": user.country,
+    users_col.insert_one(
+        {
+            "user_info": {
+                "firstName": user.firstName,
+                "lastName": user.lastName,
+                "email": user.email,
+                "password": user.password,
+                "phone": user.phone,
+                "country": user.country,
             },
             "exercise_plan": None,
             "diet_plan": None,
@@ -42,6 +43,6 @@ def login(data: UserLogin):
         "firstName": user["user_info"]["firstName"],
         "lastName": user["user_info"]["lastName"],
         "email": user["user_info"]["email"],
-        "phone_number": user["user_info"]["phone number"],
-        "country": user["user_info"]["country"],    
+        "phone": user["user_info"]["phone"],
+        "country": user["user_info"]["country"],
     }
