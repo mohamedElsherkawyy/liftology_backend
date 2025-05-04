@@ -24,7 +24,7 @@ def signup(user: UserRegister):
         }
     )
     return {
-        "message": "User registered successfully",
+        "message": "Registration successful",
         "firstName": user["user_info"]["firstName"],
         "lastName": user["user_info"]["lastName"],
         "email": user["user_info"]["email"],
@@ -40,9 +40,9 @@ def login(data: UserLogin):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return {
         "message": "Login successful",
-        "first_name": user["user_info"]["first_name"],
-        "last_name": user["user_info"]["last_name"],
+        "firstName": user["user_info"]["firstName"],
+        "lastName": user["user_info"]["lastName"],
         "email": user["user_info"]["email"],
         "phone": user["user_info"]["phone"],
         "country": user["user_info"]["country"],
-    }
+    } 
