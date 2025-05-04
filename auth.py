@@ -14,7 +14,7 @@ def signup(user: UserRegister):
         "last name": user.Last_name,
         "email": user.email,
         "password": user.password,
-        "phone number": user.phone_number,
+        "phone number": user.Phone_number,
         "country": user.country,
             },
         "exercise_plan": None ,
