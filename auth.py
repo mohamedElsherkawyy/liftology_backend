@@ -10,11 +10,11 @@ def signup(user: UserRegister):
         raise HTTPException(status_code=400, detail="Email already exists")
     users_col.insert_one({
         "user_info":{
-        "first name": user.First_name,
-        "last name": user.Last_name,
+        "first": user.first,
+        "last": user.last,
         "email": user.email,
         "password": user.password,
-        "phone number": user.Phone_number,
+        "phone": user.Phone,
         "country": user.country,
             },
         "exercise_plan": None ,
@@ -29,6 +29,6 @@ def login(data: UserLogin):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return {
         "message": "Login successful",
-        "first_name": user["user_info"]["first name"],
-        "last_name": user["user_info"]["last name"]
+        "first_name": user["user_info"]["first"],
+        "last_name": user["user_info"]["last"]
     }
