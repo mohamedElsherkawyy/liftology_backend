@@ -10,11 +10,11 @@ def signup(user: UserRegister):
         raise HTTPException(status_code=400, detail="Email already exists")
     users_col.insert_one({
         "user_info":{
-        "first name": user.firstName,
-        "last name": user.lastName,
+        "first name": user.First_name,
+        "last name": user.Last_name,
         "email": user.email,
         "password": user.password,
-        "phone number": user.phone,
+        "phone number": user.Phone_number,
         "country": user.country,
             },
         "exercise_plan": None ,
