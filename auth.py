@@ -20,7 +20,13 @@ def signup(user: UserRegister):
         "exercise_plan": None ,
         "diet_plan": None,
     })
-    return {"message": "User registered successfully"}
+    return {"message": "User registered successfully",
+        "first_name": user["user_info"]["first name"],
+        "last_name": user["user_info"]["last name"],
+        "email": user["user_info"]["email"],
+        "phone_number": user["user_info"]["phone number"],
+        "country": user["user_info"]["country"],    
+            }
 
 @router.post("/login")
 def login(data: UserLogin):
@@ -30,5 +36,8 @@ def login(data: UserLogin):
     return {
         "message": "Login successful",
         "first_name": user["user_info"]["first name"],
-        "last_name": user["user_info"]["last name"]
+        "last_name": user["user_info"]["last name"],
+        "email": user["user_info"]["email"],
+        "phone_number": user["user_info"]["phone number"],
+        "country": user["user_info"]["country"],    
     }
