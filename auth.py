@@ -6,7 +6,7 @@ router = APIRouter()
 
 @router.post("/signup")
 def signup(user: UserRegister):
-    if users_col.find_one({"email": user.email}):
+    if users_col.find_one({"user_info.email": user.email}):
         raise HTTPException(status_code=400, detail="Email already exists")
     users_col.insert_one({
         "user_info":{
