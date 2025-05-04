@@ -10,21 +10,21 @@ def signup(user: UserRegister):
         raise HTTPException(status_code=400, detail="Email already exists")
     users_col.insert_one({
         "user_info":{
-        "firstName": user.firstName,
-        "lastName": user.lastName,
+        "first name": user.firstName,
+        "last name": user.lastName,
         "email": user.email,
         "password": user.password,
-        "phone": user.phone,
+        "phone number": user.phone,
         "country": user.country,
             },
         "exercise_plan": None ,
         "diet_plan": None,
     })
     return {"message": "User registered successfully",
-        "firstName": user["user_info"]["firstName"],
-        "lastName": user["user_info"]["lastName"],
+        "first_name": user["user_info"]["first name"],
+        "last_name": user["user_info"]["last name"],
         "email": user["user_info"]["email"],
-        "phone": user["user_info"]["phone"],
+        "phone_number": user["user_info"]["phone number"],
         "country": user["user_info"]["country"],    
             }
 
@@ -35,9 +35,9 @@ def login(data: UserLogin):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return {
         "message": "Login successful",
-        "firstName": user["user_info"]["firstName"],
-        "lastName": user["user_info"]["lastName"],
+        "first_name": user["user_info"]["first name"],
+        "last_name": user["user_info"]["last name"],
         "email": user["user_info"]["email"],
-        "phone": user["user_info"]["phone"],
+        "phone_number": user["user_info"]["phone number"],
         "country": user["user_info"]["country"],    
     }
