@@ -2,11 +2,11 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, Any, Union, List
 
 class UserRegister(BaseModel):
-    firstName: str
-    lastName: str
+    First_name: str
+    Last_name: str
     email: EmailStr
     password: str
-    phone: str
+    Phone_number: str
     country: Optional [str] = None
 
 class UserLogin(BaseModel):
@@ -20,3 +20,5 @@ class PlanRequest(BaseModel):
     body_fat_percentage: Union[int, float]
     gender: str
     age: int
+class ChatMessage(BaseModel):
+    user_input: str
