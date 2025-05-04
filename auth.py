@@ -14,7 +14,7 @@ def signup(user: UserRegister):
         "last name": user.lastName,
         "email": user.email,
         "password": user.password,
-        "phone number": user.Phone,
+        "phone number": user.phone,
         "country": user.country,
             },
         "exercise_plan": None ,
@@ -27,4 +27,8 @@ def login(data: UserLogin):
     user = users_col.find_one({"user_info.email": data.email})
     if not user or user["user_info"]["password"] != data.password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    return {"message": "Login successful", "name": user["user_info"]["name"]}
+    return {
+        "message": "Login successful",
+        "first_name": user["user_info"]["first name"],
+        "last_name": user["user_info"]["last name"]
+    }
