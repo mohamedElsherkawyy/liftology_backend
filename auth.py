@@ -27,8 +27,10 @@ def login(data: UserLogin):
     user = users_col.find_one({"user_info.email": data.email})
     if not user or user["user_info"]["password"] != data.password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    user.pop('_id',None)
+    user.pop('password',None)
     return {
         "message": "Login successful",
-        "first_name": user["user_info"]["first name"],
-        "last_name": user["user_info"]["last name"]
+        "user": user
     }
