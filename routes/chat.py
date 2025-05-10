@@ -25,6 +25,6 @@ async def chat_with_assistant(email: str, input: chatRequest):
         try:
             response = await client.post(chatbot_url, json=payload)
             response.raise_for_status()
-            return response.json()
+            return {"bot_response": response.json()}
         except httpx.HTTPStatusError as e:
             raise HTTPException(status_code=500, detail=f"Chatbot error: {e.response.text}")
