@@ -13,7 +13,7 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
-class exercise_plan_request(BaseModel):
+class PlanRequest(BaseModel):
     weight: Union[int, float]
     height: Union[int, float]
     bmi: Union[int, float]
