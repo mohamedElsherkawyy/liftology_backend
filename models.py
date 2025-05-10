@@ -13,12 +13,13 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
-class PlanRequest(BaseModel):
+class exercise_plan_request(BaseModel):
     weight: Union[int, float]
     height: Union[int, float]
     bmi: Union[int, float]
     body_fat_percentage: Union[int, float]
     gender: str
     age: int
-class ChatMessage(BaseModel):
-    user_input: str
+    
+class chatRequest(BaseModel):
+    user_input:str

@@ -3,9 +3,9 @@ from fastapi import HTTPException
 
 
 def validate_password(password: str):
-    if len(password) < 6:
+    if len(password) < 8:
         raise HTTPException(
-            status_code=400, detail="Password must be at least 6 characters long")
+            status_code=400, detail="Password must be at least 8 characters long")
     if not re.search(r'[a-z]', password):
         raise HTTPException(
             status_code=400, detail="Password must include a lowercase letter")
