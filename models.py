@@ -20,6 +20,6 @@ class PlanRequest(BaseModel):
     body_fat_percentage: Union[int, float]
     gender: str
     age: int
-    
+    fitnessGoal:str
 class chatRequest(BaseModel):
     user_input:str
