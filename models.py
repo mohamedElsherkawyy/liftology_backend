@@ -23,3 +23,8 @@ class PlanRequest(BaseModel):
     fitnessGoal:str
 class chatRequest(BaseModel):
     user_input:str
+    
+class ExerciseUpdate(BaseModel):
+    exercise: str
+    sets: str
+    reps: str
