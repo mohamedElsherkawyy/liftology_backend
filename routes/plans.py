@@ -28,14 +28,16 @@ async def generate_plan(req: PlanRequest, user_email: str):
     return {"status": "success", "plan": result}
 
 @router.put("/update-exercise-plan/{email}")
-def update_full_plan(email: str, new_plan: FullExercisePlan):
-    user = users_col.find_one({"user_info.email": email})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    new_plan=json.loads(new_plan)
+def update_full_plan(email: str, new_plan: str):
+    try:
+        plan_dict = json.loads(new_plan)
+        plan_model = FullExercisePlan(**plan_dict)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON string")
+
     users_col.update_one(
         {"user_info.email": email},
-        {"$set": {"exercise_plan": new_plan}}
+        {"$set": {"exercise_plan": plan_model.dict()}}
     )
 
-    return {"status": "success", "message": "Exercise plan updated successfully"}
+    return {"status": "success", "message": "Exercise plan updated successfully"}
