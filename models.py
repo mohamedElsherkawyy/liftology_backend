@@ -24,7 +24,6 @@ class PlanRequest(BaseModel):
 class chatRequest(BaseModel):
     user_input:str
     
-<<<<<<< HEAD
 class FullExercisePlan(BaseModel):
     output: Dict[str, Any]
 
@@ -37,9 +36,3 @@ class FoodRecommendationRequest(BaseModel):
     nutrition_input: List[float]  # ← Flat list of 9 floats
     ingredients: Optional[List[str]] = Field(default_factory=list)
     params: RecommendationParams = Field(default_factory=RecommendationParams)
-=======
-class ExerciseUpdate(BaseModel):
-    exercise: str
-    sets: str
-    reps: str
->>>>>>> 8d1d1dc61a7f5b85b565659bc67c06cdbcf52fb2
