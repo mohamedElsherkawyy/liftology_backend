@@ -1,10 +1,18 @@
 from fastapi import APIRouter, HTTPException
+<<<<<<< HEAD
 from models import PlanRequest,FullExercisePlan,FoodRecommendationRequest
 from database import users_col
 from ml.client import call_ml_model
 from datetime import datetime
 import json
 import httpx
+=======
+from models import PlanRequest,ExerciseUpdate
+from database import users_col
+from ml.client import call_ml_model
+from datetime import datetime
+
+>>>>>>> 8d1d1dc61a7f5b85b565659bc67c06cdbcf52fb2
 router = APIRouter()
 
 @router.post("/generate/{user_email}")
@@ -28,17 +36,32 @@ async def generate_plan(req: PlanRequest, user_email: str):
 
     return {"status": "success", "plan": result}
 
-@router.put("/update-exercise-plan/{email}")
-def update_full_plan(email: str, new_plan: FullExercisePlan):
+@router.put("/exercise-plan/{email}/{day}/{exercise_number}")
+def update_exercise(email: str, day: str, exercise_number: str, update: ExerciseUpdate):
     user = users_col.find_one({"user_info.email": email})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    if not user or "exercise_plan" not in user:
+        raise HTTPException(status_code=404, detail="User or exercise plan not found")
 
+    plan = user.get("exercise_plan", {}).get("output", {}).get("plan", {})
+
+    if day not in plan:
+        raise HTTPException(status_code=404, detail=f"{day} not found in plan")
+
+    if exercise_number not in plan[day]:
+        raise HTTPException(status_code=404, detail=f"Exercise {exercise_number} not found on {day}")
+
+    # Update in memory
+    plan[day][exercise_number]["exercise"] = update.exercise
+    plan[day][exercise_number]["sets"] = update.sets
+    plan[day][exercise_number]["reps"] = update.reps
+
+    # Write back to DB
     users_col.update_one(
         {"user_info.email": email},
-        {"$set": {"exercise_plan": new_plan.dict()}}
+        {"$set": {"exercise_plan.output.plan": plan}}
     )
 
+<<<<<<< HEAD
     return {"status": "success", "message": "Exercise plan updated successfully"}
 
 NGROK_API_URL = "https://4370-102-186-253-201.ngrok-free.app/predict"
@@ -64,3 +87,6 @@ async def recommend_food(email: str, request: FoodRecommendationRequest):
 
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"Model error: {str(e)}")
+=======
+    return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
+>>>>>>> 8d1d1dc61a7f5b85b565659bc67c06cdbcf52fb2
