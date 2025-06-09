@@ -24,7 +24,5 @@ class PlanRequest(BaseModel):
 class chatRequest(BaseModel):
     user_input:str
     
-class ExerciseUpdate(BaseModel):
-    exercise: str
-    sets: str
-    reps: str
+class FullExercisePlan(BaseModel):
+    output: Dict[str, Any]
