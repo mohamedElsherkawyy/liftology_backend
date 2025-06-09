@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr,Field
+from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, Any, Union, List
 
 class UserRegister(BaseModel):
@@ -26,13 +26,3 @@ class chatRequest(BaseModel):
     
 class FullExercisePlan(BaseModel):
     output: Dict[str, Any]
-
-
-class RecommendationParams(BaseModel):
-    n_neighbors: int = 5
-    return_distance: Optional[bool] = None
-
-class FoodRecommendationRequest(BaseModel):
-    nutrition_input: List[float]  # ← Flat list of 9 floats
-    ingredients: Optional[List[str]] = Field(default_factory=list)
-    params: RecommendationParams = Field(default_factory=RecommendationParams)
