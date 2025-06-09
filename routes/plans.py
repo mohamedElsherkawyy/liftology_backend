@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from models import PlanRequest,ExerciseUpdate,FoodRecommendationRequest
+from models import PlanRequest,FullExercisePlan,FoodRecommendationRequest
 from database import users_col
 from ml.client import call_ml_model
 from datetime import datetime
