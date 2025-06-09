@@ -1,10 +1,18 @@
 from fastapi import APIRouter, HTTPException
+<<<<<<< HEAD
 from models import PlanRequest,FullExercisePlan,FoodRecommendationRequest
 from database import users_col
 from ml.client import call_ml_model
 from datetime import datetime
 import json
 import httpx
+=======
+from models import PlanRequest,ExerciseUpdate
+from database import users_col
+from ml.client import call_ml_model
+from datetime import datetime
+
+>>>>>>> 8d1d1dc61a7f5b85b565659bc67c06cdbcf52fb2
 router = APIRouter()
 
 @router.post("/generate/{user_email}")
@@ -53,6 +61,7 @@ def update_exercise(email: str, day: str, exercise_number: str, update: Exercise
         {"$set": {"exercise_plan.output.plan": plan}}
     )
 
+<<<<<<< HEAD
     return {"status": "success", "message": "Exercise plan updated successfully"}
 
 NGROK_API_URL = "https://4370-102-186-253-201.ngrok-free.app/predict"
@@ -78,3 +87,6 @@ async def recommend_food(email: str, request: FoodRecommendationRequest):
 
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"Model error: {str(e)}")
+=======
+    return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
+>>>>>>> 8d1d1dc61a7f5b85b565659bc67c06cdbcf52fb2
