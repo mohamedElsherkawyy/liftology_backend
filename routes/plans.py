@@ -51,7 +51,7 @@ def update_full_plan(email: str, new_plan: ExerciseUpdate):
     return {"status": "success", "message": "Exercise plan updated successfully"}
 
 
-NGROK_API_URL = "https://4370-102-186-253-201.ngrok-free.app/predict"
+NGROK_API_URL = "https://f384-102-186-253-201.ngrok-free.app/predict"
 
 
 @router.post("/food-recommendation/{email}")
