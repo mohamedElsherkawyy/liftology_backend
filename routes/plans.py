@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from models import PlanRequest,FoodRecommendationRequest
+from models import PlanRequest,FoodRecommendationRequest,ExerciseUpdate
 
 from database import users_col
 from ml.client import call_ml_model
@@ -33,7 +33,7 @@ async def generate_plan(req: PlanRequest, user_email: str):
     return {"status": "success", "plan": result}
 
 @router.put("/update-exercise-plan/{email}")
-def update_full_plan(email: str, new_plan: FullExercisePlan):
+def update_full_plan(email: str, new_plan: ExerciseUpdate):
     user = users_col.find_one({"user_info.email": email})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
