@@ -25,6 +25,7 @@ class chatRequest(BaseModel):
     user_input:str
     
 
+
 class ExerciseUpdate(BaseModel):
     exercise: str
     sets: str
@@ -41,3 +42,4 @@ class FoodRecommendationRequest(BaseModel):
     nutrition_input: List[float]  # ← Flat list of 9 floats
     ingredients: Optional[List[str]] = Field(default_factory=list)
     params: RecommendationParams = Field(default_factory=RecommendationParams)
+
