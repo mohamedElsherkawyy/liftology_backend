@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from models import PlanRequest,FoodRecommendationRequest,ExerciseUpdate
+from models import PlanRequest, FoodRecommendationRequest, ExerciseUpdate
 
 from database import users_col
 from ml.client import call_ml_model
@@ -10,6 +10,7 @@ import json
 import httpx
 
 router = APIRouter()
+
 
 @router.post("/generate/{user_email}")
 async def generate_plan(req: PlanRequest, user_email: str):
@@ -25,12 +26,14 @@ async def generate_plan(req: PlanRequest, user_email: str):
             "output": result,
             "timestamp": datetime.utcnow()
         }
-        
+
     }
 
-    users_col.update_one({"user_info.email": user_email}, {"$set": update_data})
+    users_col.update_one({"user_info.email": user_email},
+                        {"$set": update_data})
 
     return {"status": "success", "plan": result}
+
 
 @router.put("/update-exercise-plan/{email}")
 def update_full_plan(email: str, new_plan: ExerciseUpdate):
@@ -43,13 +46,13 @@ def update_full_plan(email: str, new_plan: ExerciseUpdate):
         {"$set": {"exercise_plan": new_plan.dict()}}
     )
 
-
-
-    #return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
+    # return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
 
     return {"status": "success", "message": "Exercise plan updated successfully"}
 
+
 NGROK_API_URL = "https://4370-102-186-253-201.ngrok-free.app/predict"
+
 
 @router.post("/food-recommendation/{email}")
 async def recommend_food(email: str, request: FoodRecommendationRequest):
@@ -72,4 +75,3 @@ async def recommend_food(email: str, request: FoodRecommendationRequest):
 
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"Model error: {str(e)}")
-

@@ -5,6 +5,7 @@ import httpx
 
 router = APIRouter()
 
+
 @router.post("/chat/{email}")
 async def chat_with_assistant(email: str, input: chatRequest):
     user = users_col.find_one({"user_info.email": email})
@@ -13,7 +14,7 @@ async def chat_with_assistant(email: str, input: chatRequest):
 
     user_data = user  # Extract only user_info for the chatbot
     user_data.get("exercise_plan", {}).pop("timestamp", None)
-    user_data.pop("_id",None)
+    user_data.pop("_id", None)
     chatbot_url = "https://chatbot-production-8a57.up.railway.app/chat"
 
     payload = {
@@ -27,4 +28,5 @@ async def chat_with_assistant(email: str, input: chatRequest):
             response.raise_for_status()
             return {"bot_response": response.json()}
         except httpx.HTTPStatusError as e:
-            raise HTTPException(status_code=500, detail=f"Chatbot error: {e.response.text}")
+            raise HTTPException(
+                status_code=500, detail=f"Chatbot error: {e.response.text}")

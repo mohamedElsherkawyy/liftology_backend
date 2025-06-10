@@ -17,6 +17,7 @@ app.include_router(plans_router)
 app.include_router(users_router)
 app.include_router(chat_router)
 
+
 @app.get("/")
 def root():
     return {"message": "Liftology Backend is running!"}
