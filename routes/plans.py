@@ -35,21 +35,32 @@ async def generate_plan(req: PlanRequest, user_email: str):
     return {"status": "success", "plan": result}
 
 
-@router.put("/update-exercise-plan/{email}")
-def update_full_plan(email: str, new_plan: ExerciseUpdate):
+@router.put("/exercise-plan/{email}/{day}/{exercise_number}")
+def update_exercise(email: str, day: str, exercise_number: str, update: ExerciseUpdate):
     user = users_col.find_one({"user_info.email": email})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    if not user or "exercise_plan" not in user:
+        raise HTTPException(status_code=404, detail="User or exercise plan not found")
 
+    plan = user.get("exercise_plan", {}).get("output", {}).get("plan", {})
+
+    if day not in plan:
+        raise HTTPException(status_code=404, detail=f"{day} not found in plan")
+
+    if exercise_number not in plan[day]:
+        raise HTTPException(status_code=404, detail=f"Exercise {exercise_number} not found on {day}")
+
+    # Update in memory
+    plan[day][exercise_number]["exercise"] = update.exercise
+    plan[day][exercise_number]["sets"] = update.sets
+    plan[day][exercise_number]["reps"] = update.reps
+
+    # Write back to DB
     users_col.update_one(
         {"user_info.email": email},
-        {"$set": {"exercise_plan": new_plan.dict()}}
+        {"$set": {"exercise_plan.output.plan": plan}}
     )
 
-    # return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
-
-    return {"status": "success", "message": "Exercise plan updated successfully"}
-
+    return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
 
 NGROK_API_URL = "https://5522-102-186-253-201.ngrok-free.app/predict"
 
