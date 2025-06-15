@@ -62,7 +62,7 @@ def update_exercise(email: str, day: str, exercise_number: str, update: Exercise
 
     return {"status": "success", "message": f"Exercise {exercise_number} on {day} updated"}
 
-NGROK_API_URL = "https://52b8-102-186-253-201.ngrok-free.app/predict"
+NGROK_API_URL = "https://272d-102-186-253-201.ngrok-free.app/predict"
 
 
 @router.post("/food-recommendation/{email}")
